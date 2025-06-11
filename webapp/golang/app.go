@@ -175,10 +175,6 @@ func getFlash(w http.ResponseWriter, r *http.Request, key string) string {
 }
 
 func makePosts(results []Post, csrfToken string, allComments bool) ([]Post, error) {
-	if len(results) == 0 {
-		return []Post{}, nil
-	}
-
 	// --- 1. IDの一括抽出 ---
 	postIDs := make([]int, 0, len(results))
 	allUserIDs := make(map[int]struct{}) // ユーザーIDの重複をなくすためmapを使用
@@ -214,7 +210,7 @@ func makePosts(results []Post, csrfToken string, allComments bool) ([]Post, erro
 
 	// allCommentsフラグによってクエリを分岐
 	var queryComments string
-		queryComments = "SELECT * FROM `comments` WHERE `post_id` IN (?) ORDER BY `created_at` ASC"
+	queryComments = "SELECT * FROM `comments` WHERE `post_id` IN (?) ORDER BY `created_at` ASC"
 	if !allComments {
 		queryComments += " LIMIT 3"
 	}
