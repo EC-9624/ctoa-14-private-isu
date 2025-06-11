@@ -210,9 +210,11 @@ func makePosts(results []Post, csrfToken string, allComments bool) ([]Post, erro
 	// allCommentsフラグによってクエリを分岐
 	var queryComments string
 	queryComments = "SELECT * FROM `comments` WHERE `post_id` IN (?) ORDER BY `created_at` ASC"
+	/*
 	if !allComments {
 		queryComments += " LIMIT 3"
 	}
+		*/
 
 	query, args, err = sqlx.In(queryComments, postIDs)
 	if err != nil {
