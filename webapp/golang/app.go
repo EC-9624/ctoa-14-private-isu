@@ -209,7 +209,7 @@ func makePosts(results []Post, csrfToken string, allComments bool) ([]Post, erro
 	commentQuery := `
 		SELECT * FROM comments
 		WHERE post_id IN (?)
-		ORDER BY created_at DESC
+		ORDER BY created_at ASC
 	`
 	query, args, _ = sqlx.In(commentQuery, postIDs)
 	query = db.Rebind(query)
@@ -260,11 +260,6 @@ func makePosts(results []Post, csrfToken string, allComments bool) ([]Post, erro
 
 		// attach post user
 		p.User = userMap[p.UserID]
-
-		// reverse comments
-		for i, j := 0, len(p.Comments)-1; i < j; i, j = i+1, j-1 {
-			p.Comments[i], p.Comments[j] = p.Comments[j], p.Comments[i]
-		}
 
 		if p.User.DelFlg == 0 {
 			posts = append(posts, p)
