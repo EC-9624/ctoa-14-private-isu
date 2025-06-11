@@ -197,7 +197,6 @@ func makePosts(results []Post, csrfToken string, allComments bool) ([]Post, erro
 	if err != nil {
 		return nil, err
 	}
-	query = db.Rebind(query)
 	if err := db.Select(&counts, query, args...); err != nil {
 		return nil, err
 	}
@@ -219,7 +218,6 @@ func makePosts(results []Post, csrfToken string, allComments bool) ([]Post, erro
 	if err != nil {
 		return nil, err
 	}
-	query = db.Rebind(query)
 	if err := db.Select(&allCommentsList, query, args...); err != nil {
 		return nil, err
 	}
@@ -237,7 +235,6 @@ func makePosts(results []Post, csrfToken string, allComments bool) ([]Post, erro
 	if err != nil {
 		return nil, err
 	}
-	query = db.Rebind(query)
 	var users []User
 	if err := db.Select(&users, query, args...); err != nil {
 		return nil, err
