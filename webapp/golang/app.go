@@ -263,9 +263,7 @@ func makePosts(results []Post, csrfToken string, allComments bool) ([]Post, erro
 
 		// コメント数とコメント本体をマージ
 		p.CommentCount = commentCountsMap[p.ID]
-		comments := commentsByPostID[p.ID]
-		
-		p.Comments = comments
+		p.Comments = commentsByPostID[p.ID]
 		p.CSRFToken = csrfToken
 
 		posts = append(posts, p)
